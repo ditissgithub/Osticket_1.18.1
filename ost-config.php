@@ -21,19 +21,19 @@ if(!strcasecmp(basename($_SERVER['SCRIPT_NAME']),basename(__FILE__)) || !defined
     die('kwaheri rafiki!');
 
 #Install flag
-define('OSTINSTALLED',TRUE);
+define('OSTINSTALLED',FALSE);
 if(OSTINSTALLED!=TRUE){
-    if(!file_exists(ROOT_DIR.'setup/install.php')) die('Error: Contact system admin.'); //Something is really wrong!
+    if(!file_exists(ROOT_DIR.'setup/install.php')) die('Error: Contact system admin.'); //Something i                                                                                                                                  s really wrong!
     //Invoke the installer.
     header('Location: '.ROOT_PATH.'setup/install.php');
     exit;
 }
 
 # Encrypt/Decrypt secret key - randomly generated during installation.
-define('SECRET_SALT','tkseOg8Ixt4Ie5lTrSHJ4kpUB1mKTx9K');
+define('SECRET_SALT','%CONFIG-SIRI');
 
 #Default admin email. Used only on db connection issues and related alerts.
-define('ADMIN_EMAIL','satishsparrow1996@gmail.com');
+define('ADMIN_EMAIL','%ADMIN-EMAIL');
 
 # Database Options
 # ====================================================
@@ -41,17 +41,17 @@ define('ADMIN_EMAIL','satishsparrow1996@gmail.com');
 #
 define('DBTYPE','mysql');
 #  DBHOST can have comma separated hosts (e.g db1:6033,db2:6033)
-define('DBHOST','172.10.1.111');
-define('DBNAME','ost');
-define('DBUSER','ostuser');
-define('DBPASS','ost@@123');
+define('DBHOST','%CONFIG-DBHOST');
+define('DBNAME','%CONFIG-DBNAME');
+define('DBUSER','%CONFIG-DBUSER');
+define('DBPASS','%CONFIG-DBPASS');
 
 # Database TCP/IP Connect Timeout (default: 3 seconds)
 # Timeout is important when DBHOST has multiple proxies to try
 # define('DBCONNECT_TIMEOUT', 3);
 
 # Table prefix
-define('TABLE_PREFIX','ost_');
+define('TABLE_PREFIX','%CONFIG-PREFIX');
 
 #
 # SSL Options
@@ -177,3 +177,4 @@ define('SESSION_SESSID', 'OSTSESSID');
 # define('SESSION_BACKEND', 'memcache');
 # define('MEMCACHE_SERVERS', 'server1:11211,server2:11211');
 ?>
+
