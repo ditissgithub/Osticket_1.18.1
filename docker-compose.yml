@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  osticket:
+    image: osticket:1.18.1  # Replace with your image name and tag
+    container_name: osticket
+    environment:
+      - PORT=8002
+    volumes:
+      - /hpctool_stack/persistent_data/ost-config.php:/var/www/html/support/include/ost-config.php:rw
+    networks:
+      ipvlan_network:
+        ipv4_address: 192.168.0.101
+    ports:
+      - "80:8002"  # Maps port 80 of the host to 8002 in the container
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  ipvlan_network:
+    driver: ipvlan
+    driver_opts:
+      parent: eth2
+    ipam:
+      config:
+        - subnet: "192.168.0.0/24"  # Define subnet for the ipvlan network
